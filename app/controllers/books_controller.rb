@@ -4,23 +4,31 @@ class BooksController < ApplicationController
     @books=Book.all
     p "標準出力にのみ反映"
     logger.debug("標準出力とログファイルに記録される")
+    @book=Book.new 
+  end
+
+  def create
+    book=Book.new (book_params)
+    book.save
+    redirect_to book_path(book.id)
   end
 
   def show
     @book=Book.find(params[:id])
   end
-
-  def create
-    books=Book.index(book_params)
-    books.save
-    redirect_to book_path(books.id)
-  end
-
+  
   def edit
+    @book=Book.find(params[:id])
   end
 
+  def destroy
+     book=Book.find(params[:id])
+     book.destroy
+     redirect_to book_path
+    
+  end
  private
   def book_params
-   params.require(:books).permit(:title,:body)
+   params.require(:book).permit(:title,:body)
   end
 end
