@@ -1,14 +1,29 @@
 <header>
   <h1>Books</h1>
 </header>
- <% @books.each do |book| %>
-  <span><%= book.title %></span>
-  <span><%= book.body %></span>
-  <span><%= link_to "Show",book_path(book.id) %></span>
-  <span><%= link_to "Edit",edit_book_path(book.id) %></span>
-  <span><%= link_to "Destory",book_path(book),method: :delete,data:{confirm: "Are you sure?"} %></span>
 
- <% end %>
+<table>
+<thead>
+ <tr>
+    <th>Table</th>
+    <th>Body</th>
+ </tr>
+</thead>
+
+<tbody>
+  <tr>
+ <% @books.each do |book| %>
+   <td><%= book.title %></td>
+   <td><%= book.body %></td>
+   <td><%= link_to "Show",book_path(book.id) %></td>
+   <td><%= link_to "Edit",edit_book_path(book.id) %></td>
+   <td><%= link_to "Destory",book_path(book),method: :delete,data:{confirm: "Are you sure?"} %></td>
+<% end %>
+
+ </tr>
+</tbody>
+</table>
+
 <main>
   <h2>New book</h2>
   <% if @book.errors.any? %>
@@ -25,4 +40,4 @@
   <%=f.submit'Create Book' %>
   <% end %>
 
-</main>
+</main>   <1></1>
