@@ -5,6 +5,7 @@ class BooksController < ApplicationController
     p "標準出力にのみ反映"
     logger.debug("標準出力とログファイルに記録される")
     @book=Book.new 
+    @books=Book.all.order(updated_at: :asc)
     
   end
 
@@ -42,11 +43,15 @@ class BooksController < ApplicationController
   end  
 
   def destroy
-     book=Book.find(params[:id])
-     book.destroy
+     @book=Book.find(params[:id])
+     if @book.destroy
+     flash[:notice]="Book was successfully destroyed."
      redirect_to books_path 
-    
+     else
+     render :index 
+     end
   end
+  
  private
   def book_params
    params.require(:book).permit(:title,:body)
